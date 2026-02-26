@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Thorson — The Most Important Work of Your Life</title>
+<meta name="description" content="Daniel Thorson is a contemplative practitioner and advisor who works one-on-one with people to develop a lived trust in their own experience and nature.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+
+  :root {
+    --color-bg: #FAF8F5;
+    --color-bg-warm: #F3EDE6;
+    --color-text: #2C2825;
+    --color-text-soft: #6B6360;
+    --color-text-softer: #9B9490;
+    --color-accent: #8B6F5C;
+    --color-accent-hover: #6E5647;
+    --color-border: #E2DBD3;
+    --color-border-light: #EDE8E2;
+    --color-white: #FFFFFF;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Jost', 'Gill Sans', sans-serif;
+    --max-width: 720px;
+    --max-width-wide: 960px;
+    
+    /* Custom Easing for premium feel */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250, 248, 245, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.6s var(--ease-out-expo), padding 0.6s var(--ease-out-expo);
+  }
+
+  nav.scrolled {
+    border-bottom-color: var(--color-border-light);
+    padding: 0.8rem 2rem;
+  }
+
+  .nav-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: opacity 0.4s var(--ease-out-expo);
+  }
+  
+  .nav-name:hover {
+    opacity: 0.7;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a:not(.nav-cta) {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.4s var(--ease-out-expo);
+  }
+
+  .nav-links a:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .nav-links a:not(.nav-cta):hover {
+    color: var(--color-text);
+  }
+
+  .nav-links a:not(.nav-cta):hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+
+  .nav-cta, .cta-button {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-white) !important;
+    background: var(--color-accent);
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.5s var(--ease-out-expo);
+    display: inline-block;
+    will-change: transform, box-shadow;
+  }
+
+  .nav-cta:hover, .cta-button:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(139, 111, 92, 0.15);
+  }
+  
+  .nav-cta:active, .cta-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(139, 111, 92, 0.1);
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 6rem;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(139, 111, 92, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUpExpo 1.2s var(--ease-out-expo) 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.2;
+    max-width: 680px;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeUpExpo 1.2s var(--ease-out-expo) 0.35s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--color-text-soft);
+    max-width: 480px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUpExpo 1.2s var(--ease-out-expo) 0.5s forwards;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUpExpo 1.2s var(--ease-out-expo) 0.65s forwards;
+    z-index: 2;
+  }
+
+  .hero-cta::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-accent);
+    transition: background-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+  }
+
+  .hero-cta:hover {
+    color: var(--color-accent-hover);
+  }
+  
+  .hero-cta:hover::after {
+    background-color: var(--color-accent-hover);
+    transform: translateY(3px);
+  }
+
+  /* The Glowing Horizon */
+  .glowing-horizon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1;
+  }
+
+  .glowing-horizon::before {
+    content: '';
+    position: absolute;
+    width: 80vw;
+    max-width: 800px;
+    height: 3px;
+    background: radial-gradient(circle, var(--color-accent) 0%, transparent 80%);
+    opacity: 0;
+    animation: horizonBreathe 6s ease-in-out infinite, fadeInExpo 2s var(--ease-out-expo) 1s forwards;
+  }
+
+  .glowing-horizon::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 25vh;
+    background: radial-gradient(ellipse at 50% 100%, rgba(139, 111, 92, 0.2) 0%, rgba(139, 111, 92, 0.05) 40%, transparent 80%);
+    opacity: 0;
+    animation: lightSpill 6s ease-in-out infinite, fadeInExpo 2s var(--ease-out-expo) 1s forwards;
+    pointer-events: none;
+  }
+
+  /* ---- SECTIONS ---- */
+  section {
+    padding: 6rem 2rem;
+  }
+
+  .section-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .section-inner.wide {
+    max-width: var(--max-width-wide);
+  }
+
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 2.5rem;
+  }
+
+  section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  section h2 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  section p {
+    color: var(--color-text-soft);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---- THE WORK ---- */
+  .the-work {
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .work-lead {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+
+  /* ---- WHAT CHANGES ---- */
+  .changes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .change-item {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-border);
+    transition: border-color 0.4s var(--ease-out-expo);
+  }
+
+  .change-item:hover {
+    border-color: var(--color-accent);
+  }
+
+  .change-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
+  }
+
+  .change-item p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ---- WHO THIS IS FOR ---- */
+  .for-section {
+    background: var(--color-bg-warm);
+  }
+
+  .portrait {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .portrait:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .portrait:first-child {
+    padding-top: 0.5rem;
+  }
+
+  .portrait h3 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .portrait p {
+    font-size: 0.95rem;
+  }
+
+  /* ---- WHO DANIEL IS ---- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .about-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .about-marker {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    margin-top: 0.65rem;
+  }
+
+  .about-item p {
+    font-size: 0.95rem;
+  }
+
+  .about-item strong {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  /* ---- THE OFFERING ---- */
+  .offering-section {
+    background: var(--color-white);
+    border-top: 1px solid var(--color-border-light);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .arc-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .arc-card {
+    padding: 2.5rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    transition: all 0.6s var(--ease-out-expo);
+    will-change: transform, box-shadow;
+  }
+
+  .arc-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.03);
+  }
+
+  .arc-card.featured {
+    border-color: var(--color-accent);
+    background: var(--color-white);
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  }
+  
+  .arc-card.featured:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.05);
+  }
+
+  .arc-card.featured::before {
+    content: 'Most transformative';
+    position: absolute;
+    top: -0.65rem;
+    left: 2.5rem;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: var(--color-white);
+    padding: 0 0.6rem;
+  }
+
+  .arc-duration {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: var(--color-text);
+  }
+
+  .arc-price {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .arc-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* UPGRADED: The Investment - Stacked & Constrained Layout */
+  .investment-block {
+    margin-top: 4.5rem;
+    padding-top: 3.5rem;
+    border-top: 1px solid var(--color-border-light);
+    max-width: 720px; /* Keeps line length elegant and readable */
+  }
+
+  .investment-header h3 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .investment-copy p.investment-lead {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .investment-copy p {
+    font-size: 0.95rem;
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  /* ---- PROCESS ---- */
+  .process-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 3rem;
+    counter-reset: step;
+  }
+
+  .step {
+    counter-increment: step;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step:last-child {
+    border-bottom: none;
+  }
+
+  .step-number {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-border);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2.5rem;
+    transition: color 0.4s var(--ease-out-expo);
+  }
+  
+  .step:hover .step-number {
+    color: var(--color-accent);
+  }
+
+  .step h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--color-text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+  }
+
+  /* ---- INVITATION ---- */
+  .invitation {
+    text-align: center;
+    padding: 8rem 2rem;
+    background: var(--color-bg-warm);
+    position: relative;
+  }
+
+  .invitation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(139, 111, 92, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .invitation h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .invitation p {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .invitation .cta-button {
+    padding: 1rem 2.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-text-soft);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-text);
+  }
+
+  .footer-note {
+    font-size: 0.78rem;
+    color: var(--color-text-softer);
+  }
+
+  /* ---- ANIMATIONS ---- */
+  
+  @keyframes fadeUpExpo {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInExpo {
+    to { opacity: 1; }
+  }
+
+  @keyframes horizonBreathe {
+    0%, 100% { transform: scaleX(0.7); opacity: 0.4; }
+    50% { transform: scaleX(1.1); opacity: 0.9; }
+  }
+
+  @keyframes lightSpill {
+    0%, 100% { height: 18vh; opacity: 0.5; }
+    50% { height: 32vh; opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (min-width: 640px) {
+    .changes-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .arc-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    html { font-size: 16px; }
+
+    nav { padding: 1rem 1.2rem; }
+    nav.scrolled { padding: 0.8rem 1.2rem; }
+
+    .nav-links { gap: 1rem; }
+
+    .nav-links .hide-mobile { display: none; }
+
+    section { padding: 4rem 1.5rem; }
+
+    .hero { padding: 7rem 1.5rem 5rem; }
+
+    .invitation { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-name">Daniel Thorson</a>
+  <ul class="nav-links">
+    <li class="hide-mobile"><a href="#work">The Work</a></li>
+    <li class="hide-mobile"><a href="#for-whom">Who It's For</a></li>
+    <li><a href="#offering">Working Together</a></li>
+    <li><a href="#begin" class="nav-cta">Begin</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Daniel Thorson</p>
+  <h1>This is the most important work <em>of your life</em></h1>
+  <p class="hero-sub">There is nothing more important than clarifying love and living accordingly — for your own sake, and for the sake of everyone you are in relationship with.</p>
+  <a href="#work" class="hero-cta">Explore the work</a>
+  
+  <div class="glowing-horizon"></div>
+</section>
+
+<section class="the-work" id="work">
+  <div class="section-inner reveal">
+    <p class="section-label">The Work</p>
+    <h2>A relationship with <em>truth</em></h2>
+    <p class="work-lead">I work one-on-one with people who sense that there is a deeper way of being — and who are ready to learn to live from it. I offer a space of intimate, honest relationship in which you can be with the truth of your experience, and learn to speak from, with, and to that truth.</p>
+    <p>The premise is simple: the truth will set you free if you practice it, commit to it, and stay with it over a long enough arc. This is not a technique. It is not self-improvement. It is a way of being in relationship with reality — one that develops a lived, embodied trust in your own experience, intelligence, and nature.</p>
+    <p>In practice, rather than analyzing problems or optimizing behavior, we turn toward what is actually here: the stuck places, the grief, the unnamed longing, the patterns that no longer serve you. We meet these with curiosity rather than judgment. And something happens — not because I do it to you, but because it happens naturally when the conditions are right. Frozen places begin to thaw. What seemed like a fixed problem reveals itself as alive and intelligent. Pain becomes a doorway.</p>
+    <p>My role is both mirror and companion. I see you — often more clearly than you can see yourself — and I reflect back what is beautiful and true about who you are. I hold you to that, not out of pressure, but out of love. The relationship itself is the vessel. Over months of working together, something fundamental shifts — not just in how you handle a particular problem, but in how you relate to yourself, to others, and to life.</p>
+  </div>
+</section>
+
+<section id="changes">
+  <div class="section-inner reveal">
+    <p class="section-label">What Changes</p>
+    <h2>The destination is surprisingly <em>ordinary</em></h2>
+    <p>People who work with me over the arc of months describe a transformation that often surprises them — not into some elevated spiritual state, but into something much more real.</p>
+
+    <div class="changes-grid">
+      <div class="change-item">
+        <h3>Trust</h3>
+        <p>A literal, embodied trust in your own experience and understanding — your own seeing, intelligence, and capacity to respond to life. Trust in your nature. Trust in love.</p>
+      </div>
+      <div class="change-item">
+        <h3>Simplicity</h3>
+        <p>You find you need less. You become happy being with your partner, happy connecting, happy just being. The frantic seeking and self-optimization quiets.</p>
+      </div>
+      <div class="change-item">
+        <h3>Transparency</h3>
+        <p>Less defensiveness, less hiding, less shame. A willingness to be seen as you actually are — which paradoxically makes real intimacy possible for the first time.</p>
+      </div>
+      <div class="change-item">
+        <h3>Clarity</h3>
+        <p>You begin to know why you do what you do. Your motivations clarify, and you find yourself moved by love and connection rather than fear and avoidance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="for-section" id="for-whom">
+  <div class="section-inner reveal">
+    <p class="section-label">Who This Is For</p>
+    <h2>You might recognize <em>yourself</em></h2>
+
+    <div class="portrait">
+      <h3>The intellectual who knows but can't yet embody</h3>
+      <p>You've read McGilchrist, or Burbea, or the contemplative traditions. Your mind has been opened to a different worldview. But there is a gap between insight and embodiment — you don't yet know how to live from your heart. You need someone who can meet you at your level of intellectual sophistication and take you into the actual territory of transformation.</p>
+    </div>
+
+    <div class="portrait">
+      <h3>The successful man who senses a different order of possibility</h3>
+      <p>Things are going well — you may even be thriving. But you sense that there is a whole other dimension of what thriving could mean, a way of living that most people around you can't even see. You want to learn to live in accord with that sense. And you know that the pressures of success, power, and career are relentless — they will eat what matters most if you don't have a trusted partner helping you stay true to it.</p>
+    </div>
+
+    <div class="portrait">
+      <h3>The successful man who is quietly dying</h3>
+      <p>By external measures, things are working. But something is missing. You feel cut off from your own aliveness and interior world. You long for deeper intimacy and more satisfying relationships but don't know how to get there.</p>
+    </div>
+
+    <div class="portrait">
+      <h3>The expectant father</h3>
+      <p>Your wife is pregnant, and you feel the weight of what's being asked of you. Becoming a father requires more than logistics — it requires a clarification of your interior, a maturity of being, a letting go of patterns that no longer serve the family you're creating. You are looking for a guide through that passage.</p>
+    </div>
+
+    <div class="portrait">
+      <h3>The person in crisis or transition</h3>
+      <p>Your life is reorganizing — through loss, career change, relationship upheaval, or a spiritual opening that has left you unmoored. You need someone who has been through the territory of breakdown and can stay with you as the ground shifts.</p>
+    </div>
+
+    <p style="margin-top: 2.5rem; font-style: italic; color: var(--color-text-soft);">What these people share: sincerity. A willingness to be honest. A sense — however vague — of the pregnancy of possibility.</p>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner reveal">
+    <p class="section-label">Who I Am</p>
+    <h2>What I bring <em>to the room</em></h2>
+    <p>I am not a conventional coach. I'm not embedded in a corporate structure, a religious institution, or any single lineage. What I offer comes from a combination of depth and range that has taken twenty years to develop.</p>
+
+    <div class="about-grid">
+      <div class="about-item">
+        <div class="about-marker"></div>
+        <p><strong>Contemplative depth.</strong> Six years of residential monastic training. Over 20,000 hours of meditation practice. Extended silent retreats, including 75 consecutive days in silence.</p>
+      </div>
+      <div class="about-item">
+        <div class="about-marker"></div>
+        <p><strong>Intellectual range.</strong> A decade hosting the Emerge podcast, in deep conversation with hundreds of leading thinkers on consciousness, transformation, and civilizational change. Writer of The Intimate Mirror on Substack.</p>
+      </div>
+      <div class="about-item">
+        <div class="about-marker"></div>
+        <p><strong>Embodied knowledge.</strong> My understanding of transformation is not theoretical. I have been through my own profound breakdown and reorganization. I do not ask anyone to go anywhere I have not been.</p>
+      </div>
+      <div class="about-item">
+        <div class="about-marker"></div>
+        <p><strong>Independence.</strong> I operate from a place of genuine freedom, which means I can tell you the truth without institutional incentive to do otherwise. For powerful people surrounded by those with reasons to flatter, this independence matters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offering-section" id="offering">
+  <div class="section-inner reveal">
+    <p class="section-label">Working Together</p>
+    <h2>The deepest work happens <em>over time</em></h2>
+    <p>I work on a retainer basis because real transformation doesn't happen in isolated sessions. It happens in the continuity of a relationship that develops its own intelligence.</p>
+
+    <div class="arc-cards">
+      <div class="arc-card">
+        <p class="arc-duration">Three Months</p>
+        <p class="arc-price">Four sessions / month</p>
+        <p>Long enough to learn the fundamental skills and moves of the practice — how to be with your experience, how to speak from truth, how to trust the unfolding — and to begin carrying them into your own life.</p>
+      </div>
+      <div class="arc-card featured">
+        <p class="arc-duration">Six Months</p>
+        <p class="arc-price">Four sessions / month</p>
+        <p>Long enough for serious and significant transformation to occur. The continuity allows for the full arc of opening and integration, with time for real change to take root in your life and relationships.</p>
+      </div>
+      <div class="arc-card">
+        <p class="arc-duration">Twelve Months+</p>
+        <p class="arc-price">Four sessions / month</p>
+        <p>For those where the fit is right, the deepest work happens over years. These long-term relationships are among the most precious things in my practice. The arc of transformation over this timescale can be profound and life-altering.</p>
+      </div>
+    </div>
+
+    <div class="investment-block">
+      <div class="investment-header">
+        <h3>The Investment</h3>
+      </div>
+      <div class="investment-copy">
+        <p class="investment-lead">The standard investment is around $2,000 per month. This isn't a fee for hours — it's the cost of having a committed partner in the most important work of your life.</p>
+        <p>For those with significant resources, the investment is higher, reflecting the value of this work in the context of your life. I make special affordances based on resonance and right fit — fit is what matters most. We'll find what's right in conversation.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-inner reveal">
+    <p class="section-label">Getting Started</p>
+    <h2>How we <em>begin</em></h2>
+
+    <div class="process-steps">
+      <div class="step">
+        <span class="step-number">1</span>
+        <div>
+          <h3>Discovery call</h3>
+          <p>A free 30-minute conversation to feel into whether there is mutual resonance. This is not a sales call — it is a genuine meeting to see if working together makes sense.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-number">2</span>
+        <div>
+          <h3>Initial session</h3>
+          <p>If there is a fit, a single session where you experience the practice directly. You'll know in your body whether this is the work you've been looking for.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-number">3</span>
+        <div>
+          <h3>Mutual choice</h3>
+          <p>We decide together whether to enter a longer-term engagement. The relationship must be right for both of us. This is a commitment made with care.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="invitation" id="begin">
+  <div class="section-inner reveal">
+    <h2>Follow that <em>intuition</em></h2>
+    <p>If something in you responds to what you've read here — a recognition, a pull, a sense that this might be what you've been looking for — follow it. This is not about self-improvement. It is about something far more radical and far more ordinary: learning to trust the truth of who you already are.</p>
+    <p>The work begins wherever you are. It requires only sincerity and a willingness to be honest.</p>
+    <a href="#" class="cta-button">Schedule a Discovery Call</a>
+  </div>
+</section>
+
+<footer>
+  <ul class="footer-links">
+    <li><a href="https://intimatemirror.substack.com/" target="_blank">The Intimate Mirror</a></li>
+    <li><a href="https://x.com/dthorson" target="_blank">Twitter / X</a></li>
+    <li><a href="https://www.emergepodcast.org/" target="_blank">Emerge Podcast</a></li>
+  </ul>
+  <p class="footer-note">© 2026 Daniel Thorson</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -80px 0px'
+  });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
