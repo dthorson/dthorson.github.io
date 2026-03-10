@@ -853,7 +853,42 @@
 
   .hub-card.coming-soon {
     opacity: 0.38;
-    pointer-events: none;
+    cursor: pointer;
+    transition: opacity 0.6s var(--ease-out-expo), border-color 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo);
+  }
+
+  .hub-card.coming-soon:hover {
+    opacity: 0.72;
+    border-color: var(--color-accent);
+  }
+
+  .hub-card.coming-soon.receiving {
+    animation: cardReceive 2s var(--ease-out-expo) forwards;
+  }
+
+  @keyframes cardReceive {
+    0%   { opacity: 0.38; border-color: var(--color-border); box-shadow: none; }
+    18%  { opacity: 0.9;  border-color: var(--color-accent); box-shadow: 0 0 0 4px rgba(139, 111, 92, 0.07); }
+    65%  { opacity: 0.75; border-color: var(--color-accent); box-shadow: 0 0 0 2px rgba(139, 111, 92, 0.04); }
+    100% { opacity: 0.38; border-color: var(--color-border); box-shadow: none; }
+  }
+
+  .received-msg {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-accent);
+    margin-top: 0.75rem;
+    animation: receivedFade 2s var(--ease-out-expo) forwards;
+  }
+
+  @keyframes receivedFade {
+    0%   { opacity: 0; transform: translateY(5px); }
+    20%  { opacity: 1; transform: translateY(0); }
+    70%  { opacity: 1; }
+    100% { opacity: 0; }
   }
 
   .hub-card-name {
@@ -1215,6 +1250,24 @@
   });
 
   reveals.forEach(el => observer.observe(el));
+
+  // Coming soon cards — receive interest
+  document.querySelectorAll('.hub-card.coming-soon').forEach(card => {
+    card.addEventListener('click', function() {
+      if (this.classList.contains('receiving')) return;
+      this.classList.add('receiving');
+
+      const msg = document.createElement('span');
+      msg.className = 'received-msg';
+      msg.textContent = 'Received.';
+      this.appendChild(msg);
+
+      setTimeout(() => {
+        this.classList.remove('receiving');
+        msg.remove();
+      }, 2000);
+    });
+  });
 </script>
 
 </body>
