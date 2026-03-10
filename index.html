@@ -643,6 +643,108 @@
     margin-top: 1.5rem;
   }
 
+  /* ---- WRITING SECTION ---- */
+  .writing-section {
+    background: var(--color-bg-warm);
+    border-top: 1px solid var(--color-border-light);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .writing-intro {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--color-text-soft);
+    letter-spacing: 0.03em;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .writing-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .writing-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .writing-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+  }
+
+  .writing-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.96) saturate(0.9);
+    transition: filter 0.4s ease, transform 0.6s var(--ease-out-expo);
+  }
+
+  .writing-card:hover .writing-card-image {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.02);
+  }
+
+  .writing-card-body {
+    padding: 1.75rem 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .writing-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.04);
+  }
+
+  .writing-card-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .writing-card-body p {
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+    line-height: 1.65;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .writing-card a.read-link {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.3s ease, gap 0.3s ease;
+    margin-top: auto;
+  }
+
+  .writing-card a.read-link:hover {
+    color: var(--color-accent-hover);
+    gap: 0.65rem;
+  }
+
   /* ---- FOOTER ---- */
   footer {
     padding: 3rem 2rem;
@@ -832,13 +934,12 @@
   <ul class="nav-links">
     <li class="hide-mobile"><a href="#work">The Work</a></li>
     <li class="hide-mobile"><a href="#for-whom">Who It's For</a></li>
-    <li><a href="#offering">Working Together</a></li>
+    <li class="hide-mobile"><a href="#offering">Working Together</a></li>
     <li><a href="#begin" class="nav-cta">Begin</a></li>
   </ul>
 </nav>
 
 <section class="hero">
-  <p class="hero-eyebrow">Daniel Thorson</p>
   <h1>This is the most important work <em>of your life</em></h1>
   <p class="hero-sub">There is nothing more important than clarifying love and living accordingly — for your own sake, and for the sake of everyone you are in relationship with.</p>
   <a href="#work" class="hero-cta">Explore the work</a>
@@ -850,10 +951,10 @@
   <div class="section-inner reveal">
     <p class="section-label">The Work</p>
     <h2>A relationship with <em>truth</em></h2>
-    <p class="work-lead">I work one-on-one with people who sense that there is a deeper way of being — and who are ready to learn to live from it. I offer a space of intimate, honest relationship in which you can be with the truth of your experience, and learn to speak from, with, and to that truth.</p>
+    <p class="work-lead">I work one-on-one with people who sense that there is a deeper way of being, and who are ready to learn to live from it. I offer a space of intimate, honest relationship in which you can be with the truth of your experience and learn to think, speak, and act from that truth.</p>
     <p>The premise is simple: the truth will set you free if you practice it, commit to it, and stay with it over a long enough arc. This is not a technique. It is not self-improvement. It is a way of being in relationship with reality — one that develops a lived, embodied trust in your own experience, intelligence, and nature.</p>
     <p>In practice, rather than analyzing problems or optimizing behavior, we turn toward what is actually here: the stuck places, the grief, the unnamed longing, the patterns that no longer serve you. We meet these with curiosity rather than judgment. And something happens — not because I do it to you, but because it happens naturally when the conditions are right. Frozen places begin to thaw. What seemed like a fixed problem reveals itself as alive and intelligent. Pain becomes a doorway.</p>
-    <p>My role is both mirror and companion. I see you — often more clearly than you can see yourself — and I reflect back what is beautiful and true about who you are. I hold you to that, not out of pressure, but out of love. The relationship itself is the vessel. Over months of working together, something fundamental shifts — not just in how you handle a particular problem, but in how you relate to yourself, to others, and to life.</p>
+    <p>My role is both mirror and companion. I see you, often more clearly than you can see yourself, and I reflect back what is beautiful and true about who you are. I hold you to that, not out of pressure, but out of love. The relationship itself is the vessel. Over months of working together, something fundamental shifts, not just in how you handle a particular problem, but in how you relate to yourself, to others, and to life.</p>
   </div>
 </section>
 
@@ -895,8 +996,13 @@
     </div>
 
     <div class="portrait">
+      <h3>The serious practitioner who has hit a ceiling</h3>
+      <p>You have practiced sincerely. Years of meditation, perhaps retreats, perhaps study. Something real has happened. But underneath the practice, something isn't moving. You sense it most in your relationships: in the reactivity that hasn't softened, the intimacy that hasn't opened, the patterns that formal practice hasn't reached. Or the practice has become a groove rather than a doorway — familiar, even comforting, but no longer alive. You are beginning to see that what you most deeply want isn't going to come through more technique. You need someone who can meet you where the practice ends and where the real work, in your relationships and in your life, actually lives.</p>
+    </div>
+
+    <div class="portrait">
       <h3>The successful man who senses a different order of possibility</h3>
-      <p>Things are going well — you may even be thriving. But you sense that there is a whole other dimension of what thriving could mean, a way of living that most people around you can't even see. You want to learn to live in accord with that sense. And you know that the pressures of success, power, and career are relentless — they will eat what matters most if you don't have a trusted partner helping you stay true to it.</p>
+      <p>Things are going well. You may even be thriving. But you sense that there is a whole other dimension of what thriving could mean, a way of living that most people around you can't even see. You want to learn to live in accord with that sense. And you know that the pressures of success, power, and career are relentless. They will eat what matters most if you don't have a trusted partner helping you stay true to it.</p>
     </div>
 
     <div class="portrait">
@@ -906,12 +1012,12 @@
 
     <div class="portrait">
       <h3>The expectant father</h3>
-      <p>Your wife is pregnant, and you feel the weight of what's being asked of you. Becoming a father requires more than logistics — it requires a clarification of your interior, a maturity of being, a letting go of patterns that no longer serve the family you're creating. You are looking for a guide through that passage.</p>
+      <p>Your wife is pregnant, and you feel the weight of what's being asked of you. Becoming a father requires more than logistics. It requires a clarification of your interior, a maturity of being, a letting go of patterns that no longer serve the family you're creating. You are looking for a guide through that passage.</p>
     </div>
 
     <div class="portrait">
       <h3>The person in crisis or transition</h3>
-      <p>Your life is reorganizing — through loss, career change, relationship upheaval, or a spiritual opening that has left you unmoored. You need someone who has been through the territory of breakdown and can stay with you as the ground shifts.</p>
+      <p>Your life is reorganizing: through loss, career change, relationship upheaval, or a spiritual opening that has left you unmoored. You need someone who has been through the territory of breakdown and can stay with you as the ground shifts.</p>
     </div>
 
     <p style="margin-top: 2.5rem; font-style: italic; color: var(--color-text-soft);">What these people share: sincerity. A willingness to be honest. A sense — however vague — of the pregnancy of possibility.</p>
@@ -927,7 +1033,7 @@
     <div class="about-grid">
       <div class="about-item">
         <div class="about-marker"></div>
-        <p><strong>Contemplative depth.</strong> Six years of residential monastic training. Over 20,000 hours of meditation practice. Extended silent retreats, including 75 consecutive days in silence.</p>
+        <p><strong>Contemplative depth.</strong> Six years of residential monastic training and over 20,000 hours of meditation practice, including over two years of cumulative silent retreat practice.</p>
       </div>
       <div class="about-item">
         <div class="about-marker"></div>
@@ -974,7 +1080,7 @@
         <h3>The Investment</h3>
       </div>
       <div class="investment-copy">
-        <p class="investment-lead">The standard investment is around $2,000 per month. This isn't a fee for hours — it's the cost of having a committed partner in the most important work of your life.</p>
+        <p class="investment-lead">The standard investment is $1,500–$2,000 per month. This is the cost of having a committed partner in the most important work of your life, not a fee for hours.</p>
         <p>For those with significant resources, the investment is higher, reflecting the value of this work in the context of your life. I make special affordances based on resonance and right fit — fit is what matters most. We'll find what's right in conversation.</p>
       </div>
     </div>
@@ -1023,7 +1129,7 @@
         <span class="step-number">1</span>
         <div>
           <h3>Discovery call</h3>
-          <p>A free 30-minute conversation to feel into whether there is mutual resonance. This is not a sales call — it is a genuine meeting to see if working together makes sense.</p>
+          <p>A free 30-minute conversation to feel into whether there is mutual resonance. A genuine meeting to see if working together makes sense.</p>
         </div>
       </div>
       <div class="step">
@@ -1044,12 +1150,38 @@
   </div>
 </section>
 
+<section class="writing-section" id="writing">
+  <div class="section-inner wide reveal">
+    <p class="section-label">Writing</p>
+    <p class="writing-intro">From <em>The Intimate Mirror</em></p>
+
+    <div class="writing-cards">
+      <div class="writing-card">
+        <img class="writing-card-image" src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2075808f-178b-422e-a93a-17fd915520f0_1536x1024.png" alt="The Essence of Healing" loading="lazy">
+        <div class="writing-card-body">
+          <h3>The Essence of Healing</h3>
+          <p>"When that which suffers receives loving attunement, healing naturally follows. It's a fundamental pattern that emerges consistently across contexts and approaches."</p>
+          <a href="https://intimatemirror.substack.com/p/the-essence-of-healing" target="_blank" class="read-link">Read the essay &rarr;</a>
+        </div>
+      </div>
+      <div class="writing-card">
+        <img class="writing-card-image" src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4ca6d9db-7ba8-415d-bff9-01386c8f9ac9_1024x1024.webp" alt="Spirituality is Secure Attachment with Reality" loading="lazy">
+        <div class="writing-card-body">
+          <h3>Spirituality is Secure Attachment with Reality</h3>
+          <p>"Spirituality, at its core, is our relationship with reality itself. Just as a child develops patterns of relating to their caregivers, we develop patterns of relating to existence."</p>
+          <a href="https://intimatemirror.substack.com/p/spirituality-is-secure-attachment" target="_blank" class="read-link">Read the essay &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="invitation" id="begin">
   <div class="section-inner reveal">
     <h2>Follow that <em>intuition</em></h2>
     <p>If something in you responds to what you've read here — a recognition, a pull, a sense that this might be what you've been looking for — follow it. This is not about self-improvement. It is about something far more radical and far more ordinary: learning to trust the truth of who you already are.</p>
     <p>The work begins wherever you are. It requires only sincerity and a willingness to be honest.</p>
-    <a href="#" class="cta-button">Schedule a Discovery Call</a>
+    <a href="https://calendly.com/dthorson/exploration-call" class="cta-button">Schedule a Discovery Call</a>
   </div>
 </section>
 
