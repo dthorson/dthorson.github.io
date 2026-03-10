@@ -851,44 +851,54 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.04);
   }
 
+  /* Coming soon: resting state */
   .hub-card.coming-soon {
     opacity: 0.38;
     cursor: pointer;
-    transition: opacity 0.6s var(--ease-out-expo), border-color 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo);
+    overflow: hidden;
+    position: relative;
+    transition: opacity 1.4s ease, border-color 1.4s ease;
   }
 
-  .hub-card.coming-soon:hover {
-    opacity: 0.72;
-    border-color: var(--color-accent);
+  /* The fill — warm wash rising from the bottom as desire accumulates */
+  .hub-card.coming-soon::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: var(--fill, 0%);
+    background: linear-gradient(to top,
+      rgba(139, 111, 92, 0.09) 0%,
+      rgba(139, 111, 92, 0.03) 70%,
+      transparent 100%);
+    transition: height 2.2s ease-out;
+    pointer-events: none;
+    z-index: 0;
   }
 
-  .hub-card.coming-soon.receiving {
-    animation: cardReceive 2s var(--ease-out-expo) forwards;
+  /* All card children sit above the fill */
+  .hub-card.coming-soon > * {
+    position: relative;
+    z-index: 1;
   }
 
-  @keyframes cardReceive {
-    0%   { opacity: 0.38; border-color: var(--color-border); box-shadow: none; }
-    18%  { opacity: 0.9;  border-color: var(--color-accent); box-shadow: 0 0 0 4px rgba(139, 111, 92, 0.07); }
-    65%  { opacity: 0.75; border-color: var(--color-accent); box-shadow: 0 0 0 2px rgba(139, 111, 92, 0.04); }
-    100% { opacity: 0.38; border-color: var(--color-border); box-shadow: none; }
+  /* A mote — tiny particle drifting down */
+  .mote {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    animation: moteFall var(--fall-dur, 3s) ease-in var(--fall-delay, 0s) forwards;
   }
 
-  .received-msg {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 0.88rem;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--color-accent);
-    margin-top: 0.75rem;
-    animation: receivedFade 2s var(--ease-out-expo) forwards;
-  }
-
-  @keyframes receivedFade {
-    0%   { opacity: 0; transform: translateY(5px); }
-    20%  { opacity: 1; transform: translateY(0); }
-    70%  { opacity: 1; }
-    100% { opacity: 0; }
+  @keyframes moteFall {
+    0%   { opacity: 0;    transform: translate(0, 0) scale(1); }
+    15%  { opacity: 0.35; }
+    85%  { opacity: 0.18; }
+    100% { opacity: 0;    transform: translate(var(--drift, 8px), var(--fall, 80px)) scale(0.4); }
   }
 
   .hub-card-name {
@@ -1251,23 +1261,106 @@
 
   reveals.forEach(el => observer.observe(el));
 
-  // Coming soon cards — receive interest
-  document.querySelectorAll('.hub-card.coming-soon').forEach(card => {
-    card.addEventListener('click', function() {
-      if (this.classList.contains('receiving')) return;
-      this.classList.add('receiving');
+  // ---- Summoning system ----
+  (function() {
+    const API_URL = '/api/interest';
 
-      const msg = document.createElement('span');
-      msg.className = 'received-msg';
-      msg.textContent = 'Received.';
-      this.appendChild(msg);
+    document.querySelectorAll('.hub-card.coming-soon').forEach(card => {
+      const cardName = card.querySelector('.hub-card-name')?.textContent?.trim() || '';
+      let score    = 0;
+      let notified = false;
+      let hoverTimer = null;
+      let positions  = [];
+      let lastJiggle = 0;
 
-      setTimeout(() => {
-        this.classList.remove('receiving');
-        msg.remove();
-      }, 2000);
+      function setFill() {
+        // Fill rises from 0% → 88% as score goes 0 → 20
+        const pct = Math.min((score / 20) * 88, 88);
+        card.style.setProperty('--fill', pct + '%');
+        // Opacity lifts gently as desire accumulates
+        card.style.opacity = 0.38 + Math.min(score / 20, 1) * 0.52;
+        // Border warms at score 3+
+        if (score >= 3) card.style.borderColor = 'var(--color-accent)';
+      }
+
+      function spawnMote() {
+        const mote = document.createElement('div');
+        mote.className = 'mote';
+        const x = 10 + Math.random() * 80; // % across card width
+        const drift = (Math.random() - 0.5) * 24;
+        const fall  = 40 + Math.random() * 60;
+        const dur   = 2.4 + Math.random() * 1.8;
+        const delay = Math.random() * 0.6;
+        mote.style.cssText = `
+          left: ${x}%;
+          top: ${-4 + Math.random() * 12}px;
+          --drift: ${drift}px;
+          --fall: ${fall}px;
+          --fall-dur: ${dur}s;
+          --fall-delay: ${delay}s;
+        `;
+        card.appendChild(mote);
+        setTimeout(() => mote.remove(), (dur + delay + 0.2) * 1000);
+      }
+
+      function addScore(n) {
+        score += n;
+        setFill();
+
+        // Motes appear at score 5+, more as desire grows
+        if (score >= 5) {
+          const count = score >= 12 ? 3 : score >= 8 ? 2 : 1;
+          for (let i = 0; i < count; i++) {
+            setTimeout(spawnMote, i * 300);
+          }
+        }
+
+        // Send signal once (score 12+)
+        if (score >= 12 && !notified) {
+          notified = true;
+          try {
+            fetch(API_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ card: cardName, intensity: score }),
+              keepalive: true
+            }).catch(() => {});
+          } catch(e) {}
+        }
+      }
+
+      // Hover: +1 per 2s of sustained attention
+      card.addEventListener('mouseenter', () => {
+        hoverTimer = setInterval(() => addScore(1), 2000);
+      });
+      card.addEventListener('mouseleave', () => {
+        clearInterval(hoverTimer);
+        positions = [];
+      });
+
+      // Click: +3
+      card.addEventListener('click', () => addScore(3));
+
+      // Jiggle: rapid back-and-forth = desire, +2 per burst
+      card.addEventListener('mousemove', e => {
+        const now = Date.now();
+        positions.push({ x: e.clientX, t: now });
+        positions = positions.filter(p => now - p.t < 700);
+        if (positions.length >= 5) {
+          let rev = 0;
+          for (let i = 2; i < positions.length; i++) {
+            const d1 = positions[i-1].x - positions[i-2].x;
+            const d2 = positions[i].x   - positions[i-1].x;
+            if (d1 * d2 < 0 && Math.abs(d1) > 4 && Math.abs(d2) > 4) rev++;
+          }
+          if (rev >= 3 && now - lastJiggle > 700) {
+            lastJiggle = now;
+            addScore(2);
+          }
+        }
+      });
     });
-  });
+  })();
 </script>
 
 </body>
