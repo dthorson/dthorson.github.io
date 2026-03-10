@@ -715,6 +715,79 @@
     transform: translateY(0);
   }
 
+  /* ---- OFFERINGS HUB ---- */
+  .offering-hub {
+    margin-top: 4.5rem;
+    padding-top: 3.5rem;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .hub-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .hub-card {
+    padding: 1.8rem 2rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    display: block;
+    text-decoration: none;
+    position: relative;
+  }
+
+  a.hub-card {
+    transition: all 0.5s var(--ease-out-expo);
+    will-change: transform, box-shadow;
+  }
+
+  a.hub-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  }
+
+  .hub-card.coming-soon {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  .hub-card-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 0.45rem;
+  }
+
+  .hub-card-desc {
+    font-size: 0.87rem;
+    color: var(--color-text-soft);
+    line-height: 1.65;
+    margin-bottom: 0.85rem;
+    margin-top: 0;
+  }
+
+  .hub-card-cta {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hub-card-soon {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-softer);
+  }
+
   /* ---- RESPONSIVE ---- */
   @media (min-width: 640px) {
     .changes-grid {
@@ -726,6 +799,10 @@
     }
 
     .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hub-grid {
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -899,6 +976,32 @@
       <div class="investment-copy">
         <p class="investment-lead">The standard investment is around $2,000 per month. This isn't a fee for hours — it's the cost of having a committed partner in the most important work of your life.</p>
         <p>For those with significant resources, the investment is higher, reflecting the value of this work in the context of your life. I make special affordances based on resonance and right fit — fit is what matters most. We'll find what's right in conversation.</p>
+      </div>
+    </div>
+
+    <div class="offering-hub">
+      <p class="section-label">Also Available</p>
+      <div class="hub-grid">
+        <a href="/mentorship/" class="hub-card">
+          <p class="hub-card-name">Mentorship</p>
+          <p class="hub-card-desc">A trusted outside perspective, once a month. Less about going into the depths — more about seeing clearly and staying true.</p>
+          <span class="hub-card-cta">Learn more →</span>
+        </a>
+        <div class="hub-card coming-soon">
+          <p class="hub-card-name">Weekend Crux Intensive</p>
+          <p class="hub-card-desc">Two days of concentrated immersion for individuals or pairs at a crossroads. With a money-back guarantee.</p>
+          <span class="hub-card-soon">Coming soon</span>
+        </div>
+        <div class="hub-card coming-soon">
+          <p class="hub-card-name">Men's Group</p>
+          <p class="hub-card-desc">A circle for men doing serious inner work in community.</p>
+          <span class="hub-card-soon">Coming soon</span>
+        </div>
+        <div class="hub-card coming-soon">
+          <p class="hub-card-name">The Unfolding Circle</p>
+          <p class="hub-card-desc">A group container for the practice — for those who want to go deeper together.</p>
+          <span class="hub-card-soon">Coming soon</span>
+        </div>
       </div>
     </div>
 
