@@ -851,30 +851,26 @@
   }
 
   /* Coming soon: resting state */
+  /* Coming soon: resting state — faded, fixed dimensions */
   .hub-card.coming-soon {
     opacity: 0.38;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    transition: opacity 1.4s ease, border-color 1.4s ease;
   }
 
-  /* The fill — warm wash rising from the bottom as desire accumulates */
-  .hub-card.coming-soon::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: var(--fill, 0%);
-    background: linear-gradient(to top,
-      rgba(139, 111, 92, 0.09) 0%,
-      rgba(139, 111, 92, 0.03) 70%,
-      transparent 100%);
-    transition: height 2.2s ease-out;
-    pointer-events: none;
-    z-index: 0;
+  /* Breathing pulse on hover — opacity only, no layout change */
+  @keyframes cardBreathe {
+    0%, 100% { opacity: 0.38; }
+    50%       { opacity: 0.72; }
   }
 
-  /* All card children sit above the fill */
+  .hub-card.coming-soon:hover {
+    animation: cardBreathe 2.2s ease-in-out infinite;
+    border-color: rgba(139, 111, 92, 0.55);
+  }
+
+  /* All card children stay in flow */
   .hub-card.coming-soon > * {
     position: relative;
     z-index: 1;
@@ -968,6 +964,155 @@
     .hero { padding: 7rem 1.5rem 5rem; }
 
     .invitation { padding: 5rem 1.5rem; }
+  }
+
+  /* ---- INTEREST MODAL ---- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 40, 37, 0.48);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-panel {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    max-width: 520px;
+    width: 100%;
+    padding: 2.8rem 3rem;
+    position: relative;
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .modal-overlay.open .modal-panel {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--color-text-softer);
+    line-height: 1;
+    padding: 0.25rem 0.4rem;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--color-text); }
+
+  .modal-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-softer);
+    margin-bottom: 0.55rem;
+  }
+
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-bottom: 1.3rem;
+  }
+
+  .modal-body {
+    font-size: 0.9rem;
+    color: var(--color-text-soft);
+    line-height: 1.78;
+    margin-bottom: 2rem;
+  }
+
+  .modal-body p + p { margin-top: 0.85rem; }
+
+  .modal-form-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+    margin-bottom: 0.7rem;
+  }
+
+  .modal-form-row {
+    display: flex;
+    border: 1px solid var(--color-border);
+    transition: border-color 0.3s;
+  }
+
+  .modal-form-row:focus-within {
+    border-color: var(--color-accent);
+  }
+
+  .modal-email-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.8rem 1rem;
+    border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--color-text);
+    outline: none;
+  }
+
+  .modal-email-input::placeholder { color: var(--color-text-softer); }
+
+  .modal-submit {
+    padding: 0.8rem 1.4rem;
+    background: var(--color-accent);
+    color: var(--color-white);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s;
+  }
+
+  .modal-submit:hover { background: var(--color-accent-hover); }
+  .modal-submit:disabled { opacity: 0.55; cursor: default; }
+
+  .modal-success-msg {
+    margin-top: 0.75rem;
+    font-size: 0.84rem;
+    color: var(--color-accent);
+    min-height: 1.2em;
+  }
+
+  @media (max-width: 640px) {
+    .modal-panel { padding: 2.2rem 1.8rem; }
+    .modal-title { font-size: 1.5rem; }
+    .modal-form-row { flex-direction: column; }
+    .modal-submit { padding: 0.8rem 1rem; }
   }
 </style>
 </head>
@@ -1130,29 +1275,29 @@
     </div>
 
     <div class="offering-hub">
-      <p class="section-label">Also Available</p>
+      <p class="section-label">Available Offerings</p>
       <div class="hub-grid">
         <a href="/mentorship/" class="hub-card">
           <p class="hub-card-name">Mentorship</p>
           <p class="hub-card-desc">A trusted outside perspective, once a month. Less about going into the depths — more about seeing clearly and staying true.</p>
           <span class="hub-card-cta">Learn more →</span>
         </a>
-        <div class="hub-card coming-soon">
+        <div class="hub-card coming-soon" data-offering="Weekend Crux Intensive">
           <p class="hub-card-name">Weekend Crux Intensive</p>
           <p class="hub-card-desc">Two days of concentrated immersion for individuals or pairs at a crossroads. With a money-back guarantee.</p>
           <span class="hub-card-soon">Coming soon</span>
         </div>
-        <div class="hub-card coming-soon">
+        <div class="hub-card coming-soon" data-offering="Men's Group">
           <p class="hub-card-name">Men's Group</p>
           <p class="hub-card-desc">A circle for men doing serious inner work in community.</p>
           <span class="hub-card-soon">Coming soon</span>
         </div>
-        <div class="hub-card coming-soon">
+        <div class="hub-card coming-soon" data-offering="The Unfolding Circle">
           <p class="hub-card-name">The Unfolding Circle</p>
           <p class="hub-card-desc">A group container for the practice — for those who want to go deeper together.</p>
           <span class="hub-card-soon">Coming soon</span>
         </div>
-        <div class="hub-card coming-soon">
+        <div class="hub-card coming-soon" data-offering="The ARC Network">
           <p class="hub-card-name">The ARC Network</p>
           <p class="hub-card-desc">A network for those building at the edge of what's possible — in relationship, culture, and the emerging world.</p>
           <span class="hub-card-soon">Coming soon</span>
@@ -1238,6 +1383,24 @@
   <p class="footer-note">© 2026 Daniel Thorson</p>
 </footer>
 
+<!-- Interest Modal -->
+<div id="interest-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-panel">
+    <button class="modal-close" aria-label="Close" id="modal-close-btn">✕</button>
+    <p class="modal-eyebrow">Coming Soon</p>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <div class="modal-body" id="modal-body"></div>
+    <form id="modal-form">
+      <label for="modal-email" class="modal-form-label">Notify me when this is ready</label>
+      <div class="modal-form-row">
+        <input type="email" id="modal-email" class="modal-email-input" placeholder="your@email.com" required autocomplete="email">
+        <button type="submit" class="modal-submit" id="modal-submit-btn">Notify me</button>
+      </div>
+      <p class="modal-success-msg" id="modal-success-msg" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
 <script>
   // Nav scroll effect
   const nav = document.getElementById('nav');
@@ -1260,106 +1423,122 @@
 
   reveals.forEach(el => observer.observe(el));
 
-  // ---- Summoning system ----
-  (function() {
-    const API_URL = '/api/interest';
-
-    document.querySelectorAll('.hub-card.coming-soon').forEach(card => {
-      const cardName = card.querySelector('.hub-card-name')?.textContent?.trim() || '';
-      let score    = 0;
-      let notified = false;
-      let hoverTimer = null;
-      let positions  = [];
-      let lastJiggle = 0;
-
-      function setFill() {
-        // Fill rises from 0% → 88% as score goes 0 → 20
-        const pct = Math.min((score / 20) * 88, 88);
-        card.style.setProperty('--fill', pct + '%');
-        // Opacity lifts gently as desire accumulates
-        card.style.opacity = 0.38 + Math.min(score / 20, 1) * 0.52;
-        // Border warms at score 3+
-        if (score >= 3) card.style.borderColor = 'var(--color-accent)';
-      }
-
-      function spawnMote() {
+  // ---- Mote spawner (hover only, no layout side-effects) ----
+  function spawnMotes(card, count) {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
         const mote = document.createElement('div');
         mote.className = 'mote';
-        const x = 10 + Math.random() * 80; // % across card width
+        const x     = 10 + Math.random() * 80;
         const drift = (Math.random() - 0.5) * 24;
         const fall  = 40 + Math.random() * 60;
         const dur   = 2.4 + Math.random() * 1.8;
-        const delay = Math.random() * 0.6;
-        mote.style.cssText = `
-          left: ${x}%;
-          top: ${-4 + Math.random() * 12}px;
-          --drift: ${drift}px;
-          --fall: ${fall}px;
-          --fall-dur: ${dur}s;
-          --fall-delay: ${delay}s;
-        `;
+        const delay = Math.random() * 0.5;
+        mote.style.cssText = `left:${x}%;top:${-4 + Math.random()*12}px;--drift:${drift}px;--fall:${fall}px;--fall-dur:${dur}s;--fall-delay:${delay}s;`;
         card.appendChild(mote);
-        setTimeout(() => mote.remove(), (dur + delay + 0.2) * 1000);
-      }
+        setTimeout(() => mote.remove(), (dur + delay + 0.3) * 1000);
+      }, i * 280);
+    }
+  }
 
-      function addScore(n) {
-        score += n;
-        setFill();
-
-        // Motes appear at score 5+, more as desire grows
-        if (score >= 5) {
-          const count = score >= 12 ? 3 : score >= 8 ? 2 : 1;
-          for (let i = 0; i < count; i++) {
-            setTimeout(spawnMote, i * 300);
-          }
-        }
-
-        // Send signal once (score 12+)
-        if (score >= 12 && !notified) {
-          notified = true;
-          try {
-            fetch(API_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ card: cardName, intensity: score }),
-              keepalive: true
-            }).catch(() => {});
-          } catch(e) {}
-        }
-      }
-
-      // Hover: +1 per 2s of sustained attention
-      card.addEventListener('mouseenter', () => {
-        hoverTimer = setInterval(() => addScore(1), 2000);
-      });
-      card.addEventListener('mouseleave', () => {
-        clearInterval(hoverTimer);
-        positions = [];
-      });
-
-      // Click: +3
-      card.addEventListener('click', () => addScore(3));
-
-      // Jiggle: rapid back-and-forth = desire, +2 per burst
-      card.addEventListener('mousemove', e => {
-        const now = Date.now();
-        positions.push({ x: e.clientX, t: now });
-        positions = positions.filter(p => now - p.t < 700);
-        if (positions.length >= 5) {
-          let rev = 0;
-          for (let i = 2; i < positions.length; i++) {
-            const d1 = positions[i-1].x - positions[i-2].x;
-            const d2 = positions[i].x   - positions[i-1].x;
-            if (d1 * d2 < 0 && Math.abs(d1) > 4 && Math.abs(d2) > 4) rev++;
-          }
-          if (rev >= 3 && now - lastJiggle > 700) {
-            lastJiggle = now;
-            addScore(2);
-          }
-        }
-      });
+  document.querySelectorAll('.hub-card.coming-soon').forEach(card => {
+    let moteTimer = null;
+    card.addEventListener('mouseenter', () => {
+      spawnMotes(card, 2);
+      moteTimer = setInterval(() => spawnMotes(card, 1), 2200);
     });
-  })();
+    card.addEventListener('mouseleave', () => {
+      clearInterval(moteTimer);
+    });
+  });
+
+  // ---- Interest modal ----
+  const OFFERINGS = {
+    'Weekend Crux Intensive': {
+      desc: `<p>Two days of concentrated immersion for individuals or pairs who are at a genuine crossroads. A decision that won't wait, a pattern that keeps recurring, a relationship that needs resolution.</p><p>This isn't insight work or a workshop — it's working through something specific to completion. Conducted in person, in a container designed for depth and focus. Includes a results guarantee: if you don't feel you've made real movement on what you came with, you don't pay.</p>`
+    },
+    "Men's Group": {
+      desc: `<p>A structured circle for men doing serious inner work — together. Not a support group, and not a men's weekend. A regular practice container for men who want to be in real relationship with each other's lives, growth, and struggles over time.</p><p>The focus is on depth, honesty, and genuine accountability. This isn't casual connection — it's the kind of group that changes how you live. Forming when the right group of men comes together.</p>`
+    },
+    'The Unfolding Circle': {
+      desc: `<p>A small group container for those who want to go deeper — together. The Unfolding Circle brings people into sustained relationship with the practice of living from truth. Part teaching, part inquiry, part mutual accountability.</p><p>Not a class, not a retreat. A circle that meets regularly over time, building the kind of trust that real inquiry requires. For those who are working with the fundamental questions and want companions for the journey.</p>`
+    },
+    'The ARC Network': {
+      desc: `<p>A network for those building at the edge of what's possible — in relationship, culture, and the emerging world. ARC brings together practitioners, builders, and explorers who share a commitment to doing the inner work the moment requires.</p><p>Not a community of content, but a community of people. Designed for genuine connection and mutual support across different callings and projects — a place to be in real relationship with others who are taking both the inner and outer work seriously.</p>`
+    }
+  };
+
+  const modal       = document.getElementById('interest-modal');
+  const modalTitle  = document.getElementById('modal-title');
+  const modalBody   = document.getElementById('modal-body');
+  const modalForm   = document.getElementById('modal-form');
+  const modalEmail  = document.getElementById('modal-email');
+  const modalSubmit = document.getElementById('modal-submit-btn');
+  const modalMsg    = document.getElementById('modal-success-msg');
+  const modalClose  = document.getElementById('modal-close-btn');
+  let currentOffering = '';
+
+  function openModal(offeringName) {
+    const data = OFFERINGS[offeringName];
+    if (!data) return;
+    currentOffering = offeringName;
+    modalTitle.textContent = offeringName;
+    modalBody.innerHTML = data.desc;
+    modalEmail.value = '';
+    modalMsg.textContent = '';
+    modalSubmit.disabled = false;
+    modalSubmit.textContent = 'Notify me';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => modalEmail.focus(), 350);
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Open on card click
+  document.querySelectorAll('.hub-card.coming-soon').forEach(card => {
+    card.addEventListener('click', () => {
+      const name = card.dataset.offering || card.querySelector('.hub-card-name')?.textContent?.trim();
+      openModal(name);
+    });
+  });
+
+  // Close handlers
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  // Form submission
+  modalForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = modalEmail.value.trim();
+    if (!email) return;
+
+    modalSubmit.disabled = true;
+    modalSubmit.textContent = '…';
+
+    try {
+      const body = new URLSearchParams({ email, offering: currentOffering });
+      const res  = await fetch('/subscribe', { method: 'POST', body, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+      const data = await res.json();
+      if (data.ok) {
+        modalMsg.textContent = "You're on the list. I'll let you know when this is ready.";
+        modalEmail.value = '';
+        modalSubmit.textContent = 'Done';
+      } else {
+        throw new Error('server error');
+      }
+    } catch {
+      modalSubmit.disabled = false;
+      modalSubmit.textContent = 'Notify me';
+      modalMsg.textContent = 'Something went wrong — try again.';
+    }
+  });
 </script>
 
 </body>
